@@ -1,5 +1,4 @@
 " Themes
-Plug 'iCyMind/NeoSolarized'
 Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'

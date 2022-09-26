@@ -73,8 +73,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
-syntax on
-colorscheme one-monokai
+" syntax on
+" colorscheme one-monokai
 
 "  highlight Normal ctermbg=NONE guibg=NONE
 "  highlight NonText ctermbg=NONE guibg=NONE
