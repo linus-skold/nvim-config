@@ -3,7 +3,7 @@ if jit.os == 'Windows' then
     vim.cmd("source ~/AppData/Local/nvim/user/plugins.vim")
     vim.cmd("source ~/AppData/Local/nvim/user/keymap.vim")
 elseif jit.os == 'OSX' then
-    vim.cmd("source ~/.config/nvim/user/plugins.vim")
+    require("user/plugins")
     vim.cmd("source ~/.config/nvim/user/keymap.vim")
 end
 
