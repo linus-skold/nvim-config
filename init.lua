@@ -1,6 +1,11 @@
 
-vim.cmd("source ~/AppData/Local/nvim/user/plugins.vim")
-vim.cmd("source ~/AppData/Local/nvim/user/keymap.vim")
+if jit.os == 'Windows' then
+    vim.cmd("source ~/AppData/Local/nvim/user/plugins.vim")
+    vim.cmd("source ~/AppData/Local/nvim/user/keymap.vim")
+elseif jit.os == 'OSX' then
+    vim.cmd("source ~/.config/nvim/user/plugins.vim")
+    vim.cmd("source ~/.config/nvim/user/keymap.vim")
+end
 
 vim.opt.number = true
 vim.keymap.set("i", "<C-p>", "CtrlP", {desc = "bruh"})
