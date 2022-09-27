@@ -25,4 +25,4 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'autozimu/LanguageClient-neovim', { 'branch':'next', 'do': 'bash install.sh' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'} 
 
-
+Plug 'folke/which-key.nvim'
