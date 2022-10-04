@@ -3,6 +3,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'fratajczak/one-monokai-vim'
+Plug 'navarasu/onedark.nvim'
 
 " file explorer tree
 Plug 'kyazdani42/nvim-web-devicons' " icons

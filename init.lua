@@ -21,6 +21,11 @@ vim.api.nvim_command [[colorscheme one-monokai"]]
 require("telescope").setup({})
 require("telescope").load_extension("projects")
 require("project_nvim").setup()
+require("nvim-treesitter.configs").setup { 
+    highlight = { 
+        enable = true
+    }
+}
 -- execute printf('source %s/core/%s', stdpath('config'), 'nvim-tree.vim')
 
 require("nvim-tree").setup(
