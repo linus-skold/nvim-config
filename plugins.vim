@@ -15,7 +15,6 @@ Plug 'ahmedkhalf/project.nvim'
 " Searching 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag':'0.1.x'}
@@ -24,6 +23,7 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag':'0.1.x'}
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'autozimu/LanguageClient-neovim', { 'branch':'next', 'do': 'bash install.sh' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'} 
+Plug 'neovim/nvim-lspconfig'
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'} 
 Plug 'folke/which-key.nvim'
