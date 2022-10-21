@@ -3,20 +3,28 @@ vim.opt.termguicolors = true
 vim.opt.syntax = "on"
 -- vim.opt.colorscheme = "one-monokai"
 
+require('/user/plugins')
+
 if jit.os == 'Windows' then
-    vim.cmd("source ~/AppData/Local/nvim/user/plugins.vim")
-    vim.cmd("source ~/AppData/Local/nvim/user/keymap.vim")
+	vim.cmd("source ~/AppData/Local/nvim/lua/user/keymap.vim")
 elseif jit.os == 'OSX' then
-    require('/user/plugins')
     vim.cmd("source ~/.config/nvim/lua/user/keymap.vim")
 end
 
 vim.keymap.set("i", "<C-p>", "CtrlP", {desc = "bruh"})
 
-vim.api.nvim_command [[colorscheme one-monokai"]]
 -- let g:ctrlp_map = '<c-p>'
 -- let g:ctrlp_cmd = 'CtrlP'
 -- let g:LanguageClient_serverCommands = { 'rust':['rust-analyzer'] }
+
+require('one_monokai').setup({
+	use_cmd = true
+})
+require('lualine').setup({
+    options = {
+        theme = 'one_monokai'
+    }
+})
 
 require("telescope").setup({})
 require("telescope").load_extension("projects")
@@ -26,10 +34,15 @@ require("nvim-treesitter.configs").setup {
         enable = true
     }
 }
--- execute printf('source %s/core/%s', stdpath('config'), 'nvim-tree.vim')
 
 require("nvim-tree").setup(
     {
+        sync_root_with_cwd = true,
+        respect_root_cwd = true,
+        update_focused_file = {
+            enable = true,
+            update_root = true
+        },
         sort_by = "case_sensetive",
         view = {
             adaptive_size = true
@@ -39,7 +52,7 @@ require("nvim-tree").setup(
                 enable = false
             },
             highlight_git = true,
-            highlight_opened_files = trie,
+            highlight_opened_files = true,
             root_folder_modifier = ":~",
             add_trailing = true,
             group_empty = true,
@@ -64,6 +77,11 @@ require("nvim-tree").setup(
     }
 )
 
+require('lspconfig')['rust_analyzer'].setup({
+
+})
+
+
 require('which-key').setup { }
 
 
@@ -71,12 +89,4 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
-if jit.os == 'Windows' then
-    vim.cmd("source ~/AppData/Local/nvim/init.vim")
-elseif jit.os == 'OSX' then
-    -- vim.cmd("source init.vim")
-end
-
--- vim.cmd("colorscheme one-monokai")
-
-
+-- vim.api.nvim_set_keymap('n', '<leader>fp', ":lua require'telescope'.extensions.projects{<CR>", { noremap = true, silent = true })

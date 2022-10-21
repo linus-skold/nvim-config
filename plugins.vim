@@ -3,7 +3,11 @@ Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'fratajczak/one-monokai-vim'
+Plug 'cpea2506/one_monokai.nvim'
 Plug 'navarasu/onedark.nvim'
+
+Plug 'nvim-lualine/lualine.nvim'
+
 
 " file explorer tree
 Plug 'kyazdani42/nvim-web-devicons' " icons
@@ -22,8 +26,17 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag':'0.1.x'}
 " Language services 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'autozimu/LanguageClient-neovim', { 'branch':'next', 'do': 'bash install.sh' }
+Plug 'autozimu/LanguageClient-neovim', { 'branch':'next', 'do': 'powershell -executionpolicy bypass -File install.ps1' }
 Plug 'neovim/nvim-lspconfig'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'} 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
+" Debugger stuff
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+
+
+
+" Utils
 Plug 'folke/which-key.nvim'
+Plug 'editorconfig/editorconfig-vim'
+
