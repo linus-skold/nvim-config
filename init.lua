@@ -1,3 +1,6 @@
+vim.g.mapleader = ','
+vim.g.maplocalleader = ','
+
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.syntax = "on"
@@ -10,12 +13,6 @@ if jit.os == 'Windows' then
 elseif jit.os == 'OSX' then
     vim.cmd("source ~/.config/nvim/lua/user/keymap.vim")
 end
-
-vim.keymap.set("i", "<C-p>", "CtrlP", {desc = "bruh"})
-
--- let g:ctrlp_map = '<c-p>'
--- let g:ctrlp_cmd = 'CtrlP'
--- let g:LanguageClient_serverCommands = { 'rust':['rust-analyzer'] }
 
 require('one_monokai').setup({
 	use_cmd = true
@@ -31,7 +28,8 @@ require("telescope").load_extension("projects")
 require("project_nvim").setup()
 require("nvim-treesitter.configs").setup { 
     highlight = { 
-        enable = true
+        enable = true,
+        disable = { "txt" }
     }
 }
 
