@@ -50,7 +50,7 @@ require("nvim-tree").setup(
                 enable = false
             },
             highlight_git = true,
-            highlight_opened_files = true,
+            highlight_opened_files = "all",
             root_folder_modifier = ":~",
             add_trailing = true,
             group_empty = true,

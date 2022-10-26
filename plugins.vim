@@ -14,6 +14,7 @@ Plug 'kyazdani42/nvim-web-devicons' " icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ahmedkhalf/project.nvim'
+Plug 'romgrk/barbar.nvim'
 
 
 " Searching 
