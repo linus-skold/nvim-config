@@ -40,4 +40,5 @@ Plug 'rcarriga/nvim-dap-ui'
 " Utils
 Plug 'folke/which-key.nvim'
 Plug 'editorconfig/editorconfig-vim'
-
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
