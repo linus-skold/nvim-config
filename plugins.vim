@@ -14,8 +14,8 @@ Plug 'kyazdani42/nvim-web-devicons' " icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ahmedkhalf/project.nvim'
-Plug 'romgrk/barbar.nvim'
-
+"Plug 'romgrk/barbar.nvim'
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 
 " Searching 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -35,10 +35,10 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 
-
-
 " Utils
 Plug 'folke/which-key.nvim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
+
+

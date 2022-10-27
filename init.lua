@@ -33,6 +33,8 @@ require("nvim-treesitter.configs").setup {
     }
 }
 
+require("bufferline").setup{}
+
 require("nvim-tree").setup(
     {
         sync_root_with_cwd = true,
