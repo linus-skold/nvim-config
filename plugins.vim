@@ -42,4 +42,4 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
-
+Plug 'github/copilot.vim'
