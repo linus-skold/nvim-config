@@ -1,12 +1,23 @@
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
-
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.syntax = "on"
+--vim.g.copilot_no_tab_map = true
+--vidm.g.copilot_assume_mapped = true
+--vim.g.copilot_tab_fallback = "coc#pum#next"
+
 -- vim.opt.colorscheme = "one-monokai"
+--
+
+
 
 require('/user/plugins')
+
+require('coc')
 
 if jit.os == 'Windows' then
 	vim.cmd("source ~/AppData/Local/nvim/lua/user/keymap.vim")
@@ -35,16 +46,17 @@ require("nvim-treesitter.configs").setup {
     }
 }
 
-require("bufferline").setup{}
-
-require("nvim-tree").setup(
-    {
+require("nvim-tree").setup{ 
         sync_root_with_cwd = true,
         update_focused_file = {
             enable = true,
             update_root = true
         },
-        sort_by = "case_sensetive",
+        sort = { 
+            -- could be a custom function as well.
+            sorter = "case_sensitive"
+            -- sorter = function(nodes) table.sort(nodes, function(a,b) return #a.name < #b.name end) end
+        },
         view = {
             adaptive_size = true
         },
@@ -62,32 +74,36 @@ require("nvim-tree").setup(
                 symlink_arrow = " >>"
             }
         },
-        actions = {
-            open_file = {
-                window_picker = {
-                    enable = true,
-                    exclude = {
-                        filetype = {"notify", "packer", "qf"},
-                        buftype = {"terminal"}
-                    }
-                }
-            }
-        },
         respect_buf_cwd = true,
         create_in_closed_folder = false
     }
-)
 
-require('lspconfig')['rust_analyzer'].setup({
 
-})
 
+require("bufferline").setup{
+    options = {
+        --mode = 'tabs',
+        offsets = {
+            filetype = "NvimTree",
+            text = "File explorer",
+            separator = true,
+            text_align = "center"
+    	}
+	}
+}
+
+
+
+require('lspconfig')['rust_analyzer'].setup({ })
 
 require('which-key').setup { }
 
+require('lualine').setup { }
 
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
 
+vim.opt.listchars = { space = '.', tab = '>-' }
+vim.opt.list = true
+
+
+-- keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 -- vim.api.nvim_set_keymap('n', '<leader>fp', ":lua require'telescope'.extensions.projects{<CR>", { noremap = true, silent = true })

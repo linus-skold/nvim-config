@@ -41,5 +41,7 @@ Plug 'folke/which-key.nvim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'github/copilot.vim'
+Plug 'neoclide/coc.nvim', {'branch':'release'}

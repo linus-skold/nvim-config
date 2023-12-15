@@ -23,9 +23,11 @@ nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
 nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
 nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
 nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
-nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
-nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
+nnoremap <silent>    <A-,> <Cmd>bprevious<CR>
+nnoremap <silent>    <A-.> <Cmd>bnext<CR>
+""nnoremap <silent>    <[-b> <Cmd>Bu
 
+" nnoemap <silent>    <tab> <Cmd>coc#pum#accept()
 
 " nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 " nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
