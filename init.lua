@@ -6,28 +6,15 @@ vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.syntax = "on"
---vim.g.copilot_no_tab_map = true
---vidm.g.copilot_assume_mapped = true
---vim.g.copilot_tab_fallback = "coc#pum#next"
-
--- vim.opt.colorscheme = "one-monokai"
---
-
-
 
 require('/user/plugins')
 
 require('coc')
 
-if jit.os == 'Windows' then
-	vim.cmd("source ~/AppData/Local/nvim/lua/user/keymap.vim")
-elseif jit.os == 'OSX' then
-    vim.cmd("source ~/.config/nvim/lua/user/keymap.vim")
-end
-
 require('one_monokai').setup({
 	use_cmd = true
 })
+
 require('lualine').setup({
     options = {
         theme = 'one_monokai'
@@ -92,18 +79,15 @@ require("bufferline").setup{
 	}
 }
 
-
-
 require('lspconfig')['rust_analyzer'].setup({ })
 
 require('which-key').setup { }
 
-require('lualine').setup { }
-
-
 vim.opt.listchars = { space = '.', tab = '>-' }
 vim.opt.list = true
 
-
--- keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
--- vim.api.nvim_set_keymap('n', '<leader>fp', ":lua require'telescope'.extensions.projects{<CR>", { noremap = true, silent = true })
+if jit.os == 'Windows' then
+	vim.cmd("source ~/AppData/Local/nvim/lua/user/keymap.vim")
+elseif jit.os == 'OSX' then
+    vim.cmd("source ~/.config/nvim/lua/user/keymap.vim")
+end

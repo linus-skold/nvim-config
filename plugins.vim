@@ -9,6 +9,8 @@ Plug 'navarasu/onedark.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 
 
+Plug 'nvimdev/dashboard-nvim'
+
 " file explorer tree
 Plug 'kyazdani42/nvim-web-devicons' " icons
 Plug 'kyazdani42/nvim-tree.lua'
