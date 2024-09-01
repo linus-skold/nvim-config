@@ -9,8 +9,6 @@ elseif jit.os == 'Windows' then
     	vim.cmd("source ~/AppData/Local/nvim/plugins.vim")
 end
 
-
-
 vim.fn['plug#end']()  
 
 

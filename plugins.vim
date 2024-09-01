@@ -17,7 +17,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ahmedkhalf/project.nvim'
 "Plug 'romgrk/barbar.nvim'
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+Plug 'akinsho/bufferline.nvim'
 
 " Searching 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -32,6 +32,8 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'autozimu/LanguageClient-neovim', { 'branch':'next', 'do': 'powershell -executionpolicy bypass -File install.ps1' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'liuchengxu/vista.vim'
+Plug 'seblj/roslyn.nvim'
+"Plug 'OmniSharp/omnisharp-vim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
 " Debugger stuff
@@ -47,3 +49,6 @@ Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'github/copilot.vim'
 Plug 'neoclide/coc.nvim', {'branch':'release'}
+
+Plug 'numToStr/Comment.nvim'
+Plug 'sindrets/diffview.nvim'
