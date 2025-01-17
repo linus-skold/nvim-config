@@ -27,13 +27,17 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag':'0.1.x'}
 
 " Language services 
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'autozimu/LanguageClient-neovim', { 'branch':'next', 'do': 'powershell -executionpolicy bypass -File install.ps1' }
-Plug 'neovim/nvim-lspconfig'
-Plug 'liuchengxu/vista.vim'
-Plug 'seblj/roslyn.nvim'
+" Plug 'prabirshrestha/vim-lsp
+" Plug 'mattn/vim-lsp-settings'
+" Plug 'autozimu/LanguageClient-neovim', { 'branch':'next', 'do': 'powershell -executionpolicy bypass -File install.ps1' }
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'liuchengxu/vista.vim'
+" Plug 'seblj/roslyn.nvim'
 "Plug 'OmniSharp/omnisharp-vim'
+
+Plug 'williamboman/mason.nvim'
+
+
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
 " Debugger stuff

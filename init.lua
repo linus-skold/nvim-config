@@ -9,15 +9,14 @@ vim.opt.syntax = "on"
 
 require('user/plugins')
 
-
+require("plugins/mason")
 require("plugins/lualine")
 require("plugins/telescope")
-require("plugins/treesitter")
 require("plugins/nvim-tree")
 require("plugins/bufferline")
 require("plugins/which-key")
-require("plugins/lsproslyn")
 require("plugins/comments")
+
 
 vim.opt.listchars = { space = '.', tab = '>-' }
 vim.opt.list = true

@@ -1,2 +1,0 @@
-
-require("omnisharp-vim").setup({ })
