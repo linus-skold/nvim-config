@@ -34,6 +34,7 @@ vim.api.nvim_set_keymap("n", "<A-9>", "<Cmd>BufferGoto 9<CR>", { silent = true }
 vim.api.nvim_set_keymap("n", "<A-,>", "<Cmd>bprevious<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<A-.>", "<Cmd>bnext<CR>", { silent = true })
 
+
 --remap("n", "<leader>ee", "<cmd>NvimTreeToggle<cr>", { silent = true })
 
 

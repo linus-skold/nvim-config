@@ -315,6 +315,17 @@ local plugins = {
 			"rcarriga/nvim-notify",
 		},
 	},
+    {
+    "atiladefreitas/dooing",
+    config = function()
+        require("dooing").setup({
+            window = {
+                width = 80,
+                height = 40,
+            },
+            })
+    end,
+    },
 	-- Language services
 	"williamboman/mason.nvim", -- lsp installer
 	"nvim-treesitter/nvim-treesitter", -- syntax highlighting
