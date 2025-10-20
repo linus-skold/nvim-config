@@ -77,14 +77,17 @@ local plugins = {
 					{ section = "startup" },
 				},
 			},
-			picker = { enabled = true },
+			picker = { 
+                enabled = true, 
+                finder = "rg"
+            },
 			indent = { enabled = true },
 			input = { enabled = true },
 			notifier = {
 				enabled = true,
 				timeout = 3000,
 			},
-			quickfile = { enabled = true },
+            quickfile = { enabled = true },
 			scroll = { enabled = true },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
@@ -268,6 +271,13 @@ local plugins = {
 				end,
 				desc = "Find Git Files",
 			},
+            {
+                "<leader>ee",
+                function()
+                    Snacks.picker.explorer()
+                end,
+                desc = "File Explorer",
+            }
 		},
 		init = function()
 			vim.api.nvim_create_autocmd("User", {
@@ -340,7 +350,6 @@ local plugins = {
 	"editorconfig/editorconfig-vim",
 	"mhinz/vim-signify",
 	"tpope/vim-fugitive",
-	"lewis6991/gitsigns.nvim",
 	"sindrets/diffview.nvim",
 }
 
