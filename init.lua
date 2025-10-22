@@ -10,12 +10,9 @@ vim.opt.syntax = "on"
 
 require('user/plugins')
 require("plugins/theme")
+require('plugins/bufferline')
 require("plugins/mason")
 require("plugins/lualine")
-require("plugins/telescope")
--- require("plugins/nvim-tree")
-require("plugins/bufferline")
-require("plugins/which-key")
 require("nvim-treesitter.configs").setup {
     highlight = {
         enable = true,

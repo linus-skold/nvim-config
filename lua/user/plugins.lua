@@ -22,15 +22,15 @@ local plugins = {
 		name = "catpuccin",
 		priority = 1000,
 	},
-	"nvim-lualine/lualine.nvim",
-	"kyazdani42/nvim-web-devicons",
+    {
+	    "nvim-lualine/lualine.nvim",
+        dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
+    },
+    --"kyazdani42/nvim-web-devicons",
 	"ctrlpvim/ctrlp.vim",
-
-	"ahmedkhalf/project.nvim",
-	-- "romgrk/barbar.nvim",
 	"akinsho/bufferline.nvim",
-	"ibhagwan/fzf-lua",
-	"yuki-yano/fzf-preview.vim",
+    --"ibhagwan/fzf-lua",
+	--"yuki-yano/fzf-preview.vim",
 	"nvim-lua/plenary.nvim", -- required for telescope
 	{
 		"ckipp01/stylua-nvim",
@@ -53,10 +53,6 @@ local plugins = {
 				{ noremap = true, silent = true },
 			},
 		},
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	{
 		"echasnovski/mini.nvim",
@@ -352,12 +348,39 @@ local plugins = {
     },
 	-- Language services
 	"williamboman/mason.nvim", -- lsp installer
-	"nvim-treesitter/nvim-treesitter", -- syntax highlighting
-	-- Debugger stuff
+    {
+        "nvim-treesitter/nvim-treesitter", -- syntax highlighting
+        opts = {
+            ensure_installed = {
+                "vim",
+                "lua",
+                "html",
+                "css",
+                "scss",
+                "c_sharp",
+                "razor",
+                "c",
+                "cpp",
+                "markdown",
+                "rust",
+                "caddy",
+                "javascript",
+                "typescript",
+                "tsx"
+            }
+        }
+    },
+    -- Debugger stuff
 	"mfussenegger/nvim-dap",
 	"rcarriga/nvim-dap-ui",
 	-- Code tools
-	"github/copilot.vim",
+    {
+        "github/copilot.vim",
+        event = "VeryLazy",
+        config = function() 
+            
+        end
+    },
 	-- "neoclide/coc.nvim", -- use lsp instead
 	-- Utils
 	"folke/which-key.nvim",
