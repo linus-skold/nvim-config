@@ -75,7 +75,10 @@ local plugins = {
 			},
 			picker = { 
                 enabled = true, 
-                finder = "rg"
+                finder = "rg",
+                projects = {
+                    patterns = { ".git", "package.json" }
+                }
             },
 			indent = { enabled = true },
 			input = { enabled = true },
@@ -90,7 +93,8 @@ local plugins = {
 			styles = {
 				notification = {},
 			},
-		},
+		
+        },
 		keys = {
 			{
 				"<leader>z",
