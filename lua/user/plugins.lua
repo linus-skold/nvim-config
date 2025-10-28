@@ -354,7 +354,12 @@ local plugins = {
 	"williamboman/mason.nvim", -- lsp installer
     {
         "nvim-treesitter/nvim-treesitter", -- syntax highlighting
+        build = ":TSUpdate",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
+            auto_install = true,
+            sync_install = false,
+            highlight = { enable = true },
             ensure_installed = {
                 "vim",
                 "lua",
@@ -370,9 +375,13 @@ local plugins = {
                 "caddy",
                 "javascript",
                 "typescript",
-                "tsx"
+                "tsx",
+                "nu"
             }
-        }
+        },
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
+        end,
     },
     -- Debugger stuff
 	"mfussenegger/nvim-dap",

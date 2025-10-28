@@ -13,14 +13,6 @@ require("plugins/theme")
 require('plugins/bufferline')
 require("plugins/mason")
 require("plugins/lualine")
-require("nvim-treesitter.configs").setup {
-    highlight = {
-        enable = true,
-    },
-    indent = {
-        enable = true,
-    },
-}
 require("mini.sessions").setup()
 require("mini.completion").setup()
 require("mini.bracketed").setup()
@@ -34,4 +26,3 @@ require("user/keymap")
 vim.api.nvim_command("hi Normal guibg=NONE")
 vim.api.nvim_command("hi NormalNC guibg=NONE")
 vim.api.nvim_command("hi SignColumn guibg=NONE")
-
