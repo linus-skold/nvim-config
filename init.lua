@@ -26,3 +26,12 @@ require("user/keymap")
 vim.api.nvim_command("hi Normal guibg=NONE")
 vim.api.nvim_command("hi NormalNC guibg=NONE")
 vim.api.nvim_command("hi SignColumn guibg=NONE")
+
+-- Disable mini.completion in Snacks.nvim prompts
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'snacks_picker_input', 'snacks_files', 'snacks_pick', 'prompt' },
+  callback = function()
+    vim.b.minicompletion_disable = true
+  end,
+})
+
