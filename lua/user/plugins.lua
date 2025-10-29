@@ -62,6 +62,7 @@ local plugins = {
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
+        config = true,
 		---@type snacks.Config
 		opts = {
 			bigfile = { enabled = true },
@@ -80,6 +81,7 @@ local plugins = {
                     patterns = { ".git", "package.json", "config.nu" }
                 }
             },
+            image = { enabled = false },
 			indent = { enabled = true },
 			input = { enabled = true },
 			notifier = {
@@ -277,7 +279,12 @@ local plugins = {
                     Snacks.picker.explorer()
                 end,
                 desc = "File Explorer",
-            }
+            },
+            { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+            { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+            { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
+            { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
+    
 		},
 		init = function()
 			vim.api.nvim_create_autocmd("User", {
@@ -328,7 +335,16 @@ local plugins = {
     {
         "folke/which-key.nvim", 
         event = "VeryLazy",
-        opts = {},
+        opts = {
+            preset = 'modern',
+            win = {
+                title = true,
+                title_pos = "center"
+            }
+        },
+        config = function(_, opts) 
+            require("which-key").setup(opts)
+        end,
         keys = {
             {
                 "<leader>?",
@@ -354,29 +370,33 @@ local plugins = {
 	"williamboman/mason.nvim", -- lsp installer
     {
         "nvim-treesitter/nvim-treesitter", -- syntax highlighting
+        -- branch = 'main',
+        branch = 'master',
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
         opts = {
+            prefer_git = true,
             auto_install = true,
             sync_install = false,
-            highlight = { enable = true },
+            highlight = { enable = true, additional_vim_regex_highlighting = false },
             ensure_installed = {
-                "vim",
-                "lua",
-                "html",
-                "css",
-                "scss",
-                "c_sharp",
-                "razor",
                 "c",
-                "cpp",
-                "markdown",
-                "rust",
+                "c_sharp",
                 "caddy",
+                "cpp",
+                "css",
+                "html",
                 "javascript",
-                "typescript",
+                "lua",
+                "markdown",
+                "nu",
+                "razor",
+                "rust",
+                "scss",
+                "toml",
                 "tsx",
-                "nu"
+                "typescript",
+                "vim"
             }
         },
         config = function(_, opts)
