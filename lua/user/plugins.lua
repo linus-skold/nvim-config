@@ -15,6 +15,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local version = vim.version()
+local neovim_version = ("%d.%d.%d"):format(version.major, version.minor, version.patch)
+
 local plugins = {
 	-- theme
 	{
@@ -67,11 +70,21 @@ local plugins = {
 		opts = {
 			bigfile = { enabled = true },
 			dashboard = {
-				sections = {
-					{ section = "header" },
-					{ section = "keys", gap = 1, padding = 1 },
+                enabled = true,
+			    footer = "Hello world",
+                sections = {
+                    { section = "header" },
+                    { section = "keys", gap = 1, padding = 1 },
 					{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
 					{ section = "startup" },
+					{ 
+                        text = { 
+                                { "Neovim", hl = "header" },
+                                { " v" },
+                            { neovim_version }
+                        },
+                        align = "center"
+                    },
 				},
 			},
 			picker = { 
@@ -98,188 +111,29 @@ local plugins = {
 		
         },
 		keys = {
-			{
-				"<leader>z",
-				function()
-					Snacks.zen()
-				end,
-				desc = "Toggle Zen Mode",
-			},
-			{
-				"<leader>Z",
-				function()
-					Snacks.zen.zoom()
-				end,
-				desc = "Toggle Zoom",
-			},
-			{
-				"<leader>.",
-				function()
-					Snacks.scratch()
-				end,
-				desc = "Toggle Scratch Buffer",
-			},
-			{
-				"<leader>S",
-				function()
-					Snacks.scratch.select()
-				end,
-				desc = "Select Scratch Buffer",
-			},
-			{
-				"<leader>n",
-				function()
-					Snacks.notifier.show_history()
-				end,
-				desc = "Notification History",
-			},
-			{
-				"<leader>bd",
-				function()
-					Snacks.bufdelete()
-				end,
-				desc = "Delete Buffer",
-			},
-			{
-				"<leader>cR",
-				function()
-					Snacks.rename.rename_file()
-				end,
-				desc = "Rename File",
-			},
-			{
-				"<leader>gB",
-				function()
-					Snacks.gitbrowse()
-				end,
-				desc = "Git Browse",
-				mode = { "n", "v" },
-			},
-			{
-				"<leader>gb",
-				function()
-					Snacks.git.blame_line()
-				end,
-				desc = "Git Blame Line",
-			},
-			{
-				"<leader>gf",
-				function()
-					Snacks.lazygit.log_file()
-				end,
-				desc = "Lazygit Current File History",
-			},
-			{
-				"<leader>gg",
-				function()
-					Snacks.lazygit()
-				end,
-				desc = "Lazygit",
-			},
-			{
-				"<leader>gl",
-				function()
-					Snacks.lazygit.log()
-				end,
-				desc = "Lazygit Log (cwd)",
-			},
-			{
-				"<leader>un",
-				function()
-					Snacks.notifier.hide()
-				end,
-				desc = "Dismiss All Notifications",
-			},
-			{
-				"<c-/>",
-				function()
-					Snacks.terminal()
-				end,
-				desc = "Toggle Terminal",
-			},
-			{
-				"<c-_>",
-				function()
-					Snacks.terminal()
-				end,
-				desc = "which_key_ignore",
-			},
-			{
-				"]]",
-				function()
-					Snacks.words.jump(vim.v.count1)
-				end,
-				desc = "Next Reference",
-				mode = { "n", "t" },
-			},
-			{
-				"[[",
-				function()
-					Snacks.words.jump(-vim.v.count1)
-				end,
-				desc = "Prev Reference",
-				mode = { "n", "t" },
-			},
-			{
-				"<leader>N",
-				desc = "Neovim News",
-				function()
-					Snacks.win({
-						file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-						width = 0.6,
-						height = 0.6,
-						wo = {
-							spell = false,
-							wrap = false,
-							signcolumn = "yes",
-							statuscolumn = " ",
-							conceallevel = 3,
-						},
-					})
-				end,
-			},
-			{
-				"<leader>qp",
-				function()
-					Snacks.picker.projects()
-				end,
-				desc = "Projects",
-			},
-			{
-				"<leader><space>",
-				function()
-					Snacks.picker.files()
-				end,
-				desc = "Find Files",
-			},
-			{
-				"<leader>gc",
-				function()
-					Snacks.picker.git_log()
-				end,
-				desc = "Git Log",
-			},
-			{
-				"<leader>gs",
-				function()
-					Snacks.picker.git_status()
-				end,
-				desc = "Git Status",
-			},
-			{
-				"<leader>fg",
-				function()
-					Snacks.picker.git_files()
-				end,
-				desc = "Find Git Files",
-			},
-            {
-                "<leader>ee",
-                function()
-                    Snacks.picker.explorer()
-                end,
-                desc = "File Explorer",
-            },
+			{ "<leader>z", function() Snacks.zen() end, desc = "Toggle Zen Mode", },
+			{ "<leader>Z", function() Snacks.zen.zoom() end, desc = "Toggle Zoom", },
+			{ "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer", },
+			{ "<leader>S", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer", },
+			{ "<leader>n", function() Snacks.notifier.show_history() end, desc = "Notification History", },
+			{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer", },
+			{ "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File", },
+			{ "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" }, },
+			{ "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line", },
+			{ "<leader>gf", function() Snacks.lazygit.log_file() end, desc = "Lazygit Current File History", },
+			{ "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit", },
+			{ "<leader>gl", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)", },
+			{ "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications", },
+			{ "<c-/>", function() Snacks.terminal() end, desc = "Toggle Terminal", },
+			{ "<c-_>", function() Snacks.terminal() end, desc = "which_key_ignore", },
+			{ "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" }, },
+			{ "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" }, },
+			{ "<leader>qp", function() Snacks.picker.projects() end, desc = "Projects", },
+			{ "<leader><space>", function() Snacks.picker.files() end, desc = "Find Files", },
+			{ "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Log", },
+			{ "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status", },
+			{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files", },
+            { "<leader>ee", function() Snacks.picker.explorer() end, desc = "File Explorer", },
             { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
             { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
             { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
@@ -368,6 +222,29 @@ local plugins = {
     },
 	-- Language services
 	"williamboman/mason.nvim", -- lsp installer
+    {
+        "neovim/nvim-lspconfig", 
+        lazy = true,
+        event = { "BufReadPre", "BufNewFile" }
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = { "mason.nvim", "nvim-lspconfig" },
+        config = function() 
+            require("mason-lspconfig").setup {
+            ensure_installed = { "tsserver" }
+        }
+        end,
+    },
+    {
+        "glepnir/lspsaga.nvim",
+        branch = "main",
+        config = function()
+            require("lspsaga").setup({})
+        end,
+        dependencies = { "nvim-lspconfig", "nvim-treesitter/nvim-treesitter" },
+        lazy = true
+    }, 
     {
         "nvim-treesitter/nvim-treesitter", -- syntax highlighting
         -- branch = 'main',
