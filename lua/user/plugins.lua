@@ -77,7 +77,7 @@ local plugins = {
                 enabled = true, 
                 finder = "rg",
                 projects = {
-                    patterns = { ".git", "package.json" }
+                    patterns = { ".git", "package.json", "config.nu" }
                 }
             },
 			indent = { enabled = true },
