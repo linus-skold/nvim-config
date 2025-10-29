@@ -18,6 +18,41 @@ vim.opt.rtp:prepend(lazypath)
 local version = vim.version()
 local neovim_version = ("%d.%d.%d"):format(version.major, version.minor, version.patch)
 
+local remote_version = vim.system(
+    { "curl", "-s", "https://api.github.com/repos/neovim/neovim/releases/latest" },
+    { text = true }
+):wait().stdout:match('"tag_name":%s*"v([%d%.]+)"')
+
+local function parse_version(version_str)
+    local major, minor, patch = version_str:match("(%d+)%.(%d+)%.(%d+)")
+    return {
+        major = tonumber(major),
+        minor = tonumber(minor),
+        patch = tonumber(patch)
+    }
+end
+
+local function is_version_greater(v1, v2)
+    if v1.major ~= v2.major then
+        return v1.major > v2.major
+    elseif v1.minor ~= v2.minor then
+        return v1.minor > v2.minor
+    else
+        return v1.patch > v2.patch
+    end
+end
+
+local updateAvailable = is_version_greater(
+    parse_version(remote_version),
+    parse_version(neovim_version)
+) and " (update available)" or ""
+
+local newVersion = is_version_greater(
+    parse_version(remote_version),
+    parse_version(neovim_version)
+) and (" -> v%s"):format(remote_version) or ""
+
+
 local plugins = {
 	-- theme
 	{
@@ -60,6 +95,17 @@ local plugins = {
 	{
 		"echasnovski/mini.nvim",
 		version = "*",
+        event = "VeryLazy",
+        config = function()
+            require("mini.sessions").setup({
+                autoread = false,
+                autowrite = true,
+                directory =  '~/.config/nvim/sessions',
+            })
+            require("mini.completion").setup()
+            require("mini.bracketed").setup()
+            require("mini.comment").setup()
+        end,
 	},
 	{
 		"folke/snacks.nvim",
@@ -70,8 +116,6 @@ local plugins = {
 		opts = {
 			bigfile = { enabled = true },
 			dashboard = {
-                enabled = true,
-			    footer = "Hello world",
                 sections = {
                     { section = "header" },
                     { section = "keys", gap = 1, padding = 1 },
@@ -81,7 +125,9 @@ local plugins = {
                         text = { 
                                 { "Neovim", hl = "header" },
                                 { " v" },
-                            { neovim_version }
+                            { neovim_version },
+                            { updateAvailable },
+                            { newVersion, hl = "Special" },
                         },
                         align = "center"
                     },
@@ -221,20 +267,27 @@ local plugins = {
     end,
     },
 	-- Language services
-	"williamboman/mason.nvim", -- lsp installer
     {
+        "williamboman/mason.nvim", -- lsp installer
+        opts = {
+            registries = {
+                "github:mason-org/mason-registry",
+                "github:Crashdummyy/mason-registry"
+            }
+        },
+    },
+    {
+
         "neovim/nvim-lspconfig", 
         lazy = true,
         event = { "BufReadPre", "BufNewFile" }
     },
     {
         "williamboman/mason-lspconfig.nvim",
+        opts = {
+            ensure_installed = { "ts_ls", "roslyn", "eslint", "rust_analyzer", "lua_ls", "html", "cssls", "csharp_ls" },
+        },
         dependencies = { "mason.nvim", "nvim-lspconfig" },
-        config = function() 
-            require("mason-lspconfig").setup {
-            ensure_installed = { "tsserver" }
-        }
-        end,
     },
     {
         "glepnir/lspsaga.nvim",

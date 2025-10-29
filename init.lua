@@ -11,12 +11,7 @@ vim.opt.syntax = "on"
 require('user/plugins')
 require("plugins/theme")
 require('plugins/bufferline')
-require("plugins/mason")
 require("plugins/lualine")
-require("mini.sessions").setup()
-require("mini.completion").setup()
-require("mini.bracketed").setup()
-require("mini.comment").setup()
 
 vim.opt.listchars = { space = '.', tab = '>-' }
 vim.opt.list = true
