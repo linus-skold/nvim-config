@@ -97,11 +97,6 @@ local plugins = {
 		version = "*",
         event = "VeryLazy",
         config = function()
-            require("mini.sessions").setup({
-                autoread = false,
-                autowrite = true,
-                directory =  '~/.config/nvim/sessions',
-            })
             require("mini.completion").setup()
             require("mini.bracketed").setup()
             require("mini.comment").setup()
@@ -138,6 +133,11 @@ local plugins = {
                 finder = "rg",
                 projects = {
                     patterns = { ".git", "package.json", "config.nu" }
+                },
+                sources = {
+                    explorer = {
+                        title = "",
+                    },
                 }
             },
             image = { enabled = false },
