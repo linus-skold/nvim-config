@@ -33,13 +33,6 @@ nremap("<A-.>", "bnext", { desc = "Next buffer" })
 nremap("<A-,>", "bprevious", { desc = "Previous buffer" })
 nremap("<A-c>", "bd", { desc = "Close buffer" })
 
--- nremap("gh", "Lspsaga finder", {  desc = 'LSP Finder' } )
--- nremap("gd", "Lspsaga goto_definition", {  desc = 'Go to Definition' } )
--- nremap("gr", "Lspsaga rename", {  desc = 'Rename Symbol' } )
-
 nremap("<leader>e", function()
 	vim.diagnostic.open_float(0, { scope = "line", focusable = false })
 end, { desc = "Show line diagnostics" })
-
--- Yank to system clipboard
-vremap("<leader>Y", '"+yy', { desc = "Yank to system clipboard" })
