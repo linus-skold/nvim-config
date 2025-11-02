@@ -1,7 +1,7 @@
 local vc = require("user.version_checker")
 
 return {
-	"folke/snacks.nvim",
+"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
 	config = true,
@@ -46,10 +46,11 @@ return {
 		quickfile = { enabled = true },
 		scroll = { enabled = true },
 		statuscolumn = { enabled = true },
-		terminal = { enabled = true },
+		terminal = { enabled = true, shell = "nu"},
 		words = { enabled = true },
 		styles = {
 			notification = {},
+            terminal = { position = "right"},
 		},
 	},
     -- stylua: ignore start
