@@ -1,0 +1,35 @@
+return {
+	"nvim-treesitter/nvim-treesitter", -- syntax highlighting
+	-- branch = 'main',
+	branch = "master",
+	build = ":TSUpdate",
+	event = { "BufReadPost", "BufNewFile" },
+	opts = {
+		prefer_git = true,
+		auto_install = true,
+		sync_install = false,
+		highlight = { enable = true, additional_vim_regex_highlighting = false },
+		ensure_installed = {
+			"c",
+			"c_sharp",
+			"caddy",
+			"cpp",
+			"css",
+			"html",
+			"javascript",
+			"lua",
+			"markdown",
+			"nu",
+			"razor",
+			"rust",
+			"scss",
+			"toml",
+			"tsx",
+			"typescript",
+			"vim",
+		},
+	},
+	config = function(_, opts)
+		require("nvim-treesitter.configs").setup(opts)
+	end,
+}

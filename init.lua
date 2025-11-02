@@ -1,5 +1,6 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
@@ -7,15 +8,10 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.syntax = "on"
-
-require('user/plugins')
-require("plugins/theme")
-require('plugins/bufferline')
-require("plugins/lualine")
-
 vim.opt.listchars = { space = '.', tab = '>-' }
 vim.opt.list = true
 
+require('user/plugins')
 require("user/keymap")
 
 vim.api.nvim_command("hi Normal guibg=NONE")

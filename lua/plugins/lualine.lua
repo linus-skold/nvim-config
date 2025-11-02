@@ -1,10 +1,10 @@
-
--- require('one_monokai').setup({
---     use_cmd = true
--- })
-
-require('lualine').setup({
-  options = {
-      theme = 'auto'
-  }
-})
+return {
+	"nvim-lualine/lualine.nvim",
+	lazy = false,
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	opts = {
+		options = {
+			theme = "auto",
+		},
+	},
+}
