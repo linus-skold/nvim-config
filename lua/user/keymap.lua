@@ -1,3 +1,5 @@
+local reload_module = require("user.utils").reload_module
+
 function remap(mode, keybinding, command, options)
 	options = options or { noremap = true, silent = true }
 	if type(command) == "string" then
@@ -36,3 +38,13 @@ nremap("<A-c>", "bd", { desc = "Close buffer" })
 nremap("<leader>e", function()
 	vim.diagnostic.open_float(0, { scope = "line", focusable = false })
 end, { desc = "Show line diagnostics" })
+
+nremap("<leader>t", ":%s/\\v<true|false>/\\=submatch(0)=='true'?'false':'true'/g<CR>", { desc = "Toggle true/false" })
+
+-- Map reloading keymap
+nremap("<leader>kR", function()
+	reload_module("user.keymap")
+	vim.schedule(function()
+		vim.notify("keymap.lua reloaded")
+	end)
+end, { desc = "Reload keymap.lua" })

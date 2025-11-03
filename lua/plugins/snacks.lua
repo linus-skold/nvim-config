@@ -50,7 +50,7 @@ return {
 		words = { enabled = true },
 		styles = {
 			notification = {},
-			terminal = { position = "right"},
+			terminal = { position = "right" },
 		},
 	},
     -- stylua: ignore start

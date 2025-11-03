@@ -8,21 +8,20 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.syntax = "on"
-vim.opt.listchars = { space = '.', tab = '>-' }
+vim.opt.listchars = { space = ".", tab = ">-" }
 vim.opt.list = true
 
-require('user/plugins')
-require("user/keymap")
+require("user.lazy")
+require("user.keymap")
 
 vim.api.nvim_command("hi Normal guibg=NONE")
 vim.api.nvim_command("hi NormalNC guibg=NONE")
 vim.api.nvim_command("hi SignColumn guibg=NONE")
 
 -- Disable mini.completion in Snacks.nvim prompts
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'snacks_picker_input', 'snacks_files', 'snacks_pick', 'prompt' },
-  callback = function()
-    vim.b.minicompletion_disable = true
-  end,
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "snacks_picker_input", "snacks_files", "snacks_pick", "prompt" },
+	callback = function()
+		vim.b.minicompletion_disable = true
+	end,
 })
-
