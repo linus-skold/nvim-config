@@ -39,7 +39,14 @@ nremap("<leader>e", function()
 	vim.diagnostic.open_float(0, { scope = "line", focusable = false })
 end, { desc = "Show line diagnostics" })
 
-nremap("<leader>t", ":%s/\\v<true|false>/\\=submatch(0)=='true'?'false':'true'/g<CR>", { desc = "Toggle true/false" })
+nremap("<leader>tb", function()
+	local word = vim.fn.expand("<cword>")
+	if word == "true" then
+		vim.cmd("normal! ciwfalse")
+	elseif word == "false" then
+		vim.cmd("normal! ciwtrue")
+	end
+end, { desc = "Toggle true/false" })
 
 -- Map reloading keymap
 nremap("<leader>kR", function()
