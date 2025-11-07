@@ -17,8 +17,10 @@ return {
 			"css",
 			"html",
 			"javascript",
+			"json",
 			"lua",
 			"markdown",
+			"markdown_inline",
 			"nu",
 			"razor",
 			"rust",
@@ -27,6 +29,7 @@ return {
 			"tsx",
 			"typescript",
 			"vim",
+			"yaml",
 		},
 	},
 	config = function(_, opts)
