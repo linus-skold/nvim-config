@@ -26,19 +26,13 @@ return {
 	},
     {
         "nvim-mini/mini.sessions",
+        enable = false,
         dependencies = { "folke/snacks.nvim" },
         version = "*",
         event = "VeryLazy",
         opts = {
             autoread = false,
             autowrite = true,
-            directory = function()
-                local git_root = vim.fn.finddir(".git", ".;")
-                if git_root ~= "" then
-                    return vim.fn.fnamemodify(git_root, ":h") .. "/.git/nvim-sessions"
-                end
-                return vim.fn.stdpath("data") .. "/sessions"
-            end,
         },
         keys = {
             { "<leader>cS", function() 
