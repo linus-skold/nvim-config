@@ -75,12 +75,14 @@ return {
 				vim.lsp.buf.format({ async = true })
 			end, {})
 
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = { "*.js", "*.ts", "*.jsx", "*.tsx", "*.lua" },
-				callback = function()
-					vim.lsp.buf.format({ async = false })
-				end,
-			})
+			-- Disabled: Synchronous formatting on save causes race conditions and file corruption
+			-- Use <leader>fF to format manually, or uncomment with timeout protection
+			-- vim.api.nvim_create_autocmd("BufWritePre", {
+			-- 	pattern = { "*.js", "*.ts", "*.jsx", "*.tsx", "*.lua" },
+			-- 	callback = function()
+			-- 		vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
+			-- 	end,
+			-- })
 		end,
 		keys = {
 			{ "<leader>fF", "<cmd>Format<CR>", desc = "Format current buffer" },
