@@ -26,12 +26,13 @@ return {
 	},
     {
         "nvim-mini/mini.sessions",
-        enable = false,
+        enable = true,
         dependencies = { "folke/snacks.nvim" },
         version = "*",
         event = "VeryLazy",
-        opts = {
-            autoread = false,
+        opts = { 
+            file = "Session.vim",
+            autoread = true,
             autowrite = true,
         },
         keys = {
