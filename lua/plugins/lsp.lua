@@ -5,7 +5,7 @@ return {
 		opts = {
 			options = {
 				multilines = {
-					enabled = true,
+					enabled = false,
 				},
 			},
 		},
@@ -62,6 +62,8 @@ return {
 				automatic_installation = true,
 			})
 
+
+            -- TODO: Fix issue where eslint keeps running when moving cursor in a JS/TS file
 			null_ls.setup({
 				sources = {
 					require("none-ls.diagnostics.eslint"),
