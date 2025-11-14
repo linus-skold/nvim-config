@@ -94,6 +94,7 @@ return {
 		"nvimdev/lspsaga.nvim",
 		branch = "main",
 		dependencies = { "nvim-lspconfig", "nvim-treesitter/nvim-treesitter" },
+        event = "LspAttach",
 		lazy = true,
 		opts = {},
 		keys = {
