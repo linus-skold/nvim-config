@@ -34,6 +34,7 @@ end
 nremap("<A-.>", "bnext", { desc = "Next buffer" })
 nremap("<A-,>", "bprevious", { desc = "Previous buffer" })
 nremap("<A-c>", "bd", { desc = "Close buffer" })
+nremap("<leader>bC", "%bd|e#", { desc = "Close all buffers except current" })
 
 nremap("<leader>e", function()
 	vim.diagnostic.open_float(0, { scope = "line", focusable = false })
@@ -55,3 +56,7 @@ nremap("<leader>kR", function()
 		vim.notify("keymap.lua reloaded")
 	end)
 end, { desc = "Reload keymap.lua" })
+
+nremap("<leader>sr", "lua require('telescope').extensions.git_worktree.git_worktrees()", silent)
+nremap("<leader>sR", "lua require('telescope').extensions.git_worktree.create_git_worktree()", silent)
+nremap("<leader>sC", "nohl", silent)

@@ -12,7 +12,7 @@ return {
 				{ section = "header" },
 				{ section = "keys", gap = 1, padding = 1 },
 				{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-				{ section = "startup" },
+                { section = "startup" },
 				{
 					text = {
 						{ "Neovim", hl = "header" },
@@ -24,12 +24,12 @@ return {
 				},
 			},
 		},
-		picker = {
+        picker = {
 			enabled = true,
 			finder = "rg",
 			projects = {
-				patterns = { ".git", "package.json", "config.nu", "*.sln", "*.slnx" },
-			},
+			    enabled = true
+            },
 			sources = {
 				explorer = {
 					title = "",
@@ -41,7 +41,7 @@ return {
 		input = { enabled = true },
 		notifier = {
 			enabled = true,
-			timeout = 3000,
+			timeout = 4000,
 		},
 		quickfile = { enabled = true },
 		scroll = { enabled = true },
@@ -68,9 +68,8 @@ return {
         { "<leader>gg",      function() Snacks.lazygit() end,                                         desc = "Lazygit", },
         { "<leader>gl",      function() Snacks.lazygit.log() end,                                     desc = "Lazygit Log (cwd)", },
         { "<leader>un",      function() Snacks.notifier.hide() end,                                   desc = "Dismiss All Notifications", },
-        { "<c-/>",           function() Snacks.terminal() end,                                        desc = "Toggle Terminal", },
-        { "<c-_>",           function() Snacks.terminal() end,                                        desc = "which_key_ignore", },
-        { "<leader>tF",      function() Snacks.terminal.open(nil, { win = { style = "float" } }) end, desc = "Toggle Terminal", },
+        { "<leader>tT",      function() Snacks.terminal.toggle() end,                                        desc = "Toggle Terminal", },
+        { "<leader>tF",      function() Snacks.terminal.open(nil, { win = { style = "float" } }) end, desc = "Toggle Floating Terminal", },
         { "]]",              function() Snacks.words.jump(vim.v.count1) end,                          desc = "Next Reference",               mode = { "n", "t" }, },
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                         desc = "Prev Reference",               mode = { "n", "t" }, },
         { "<leader>qp",      function() Snacks.picker.projects() end,                                 desc = "Projects", },
