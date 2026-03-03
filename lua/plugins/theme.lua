@@ -7,7 +7,7 @@ return {
 		flavour = "mocha",
 		integrations = {
 			treesitter = true,
-			snack = true,
+			snacks = true,
 			lualine = true,
 			bufferline = true,
 		},

@@ -46,10 +46,85 @@ return {
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		opts = {
-			ensure_installed = { "ts_ls", "eslint", "rust_analyzer", "lua_ls", "html", "cssls", "csharp_ls" },
-		},
 		dependencies = { "mason.nvim", "nvim-lspconfig" },
+		opts = {
+			-- NOTE: csharp_ls has poor support for .NET Framework 4.8 legacy projects.
+			-- If you primarily work with .NET Framework / Razor / cshtml, switch to "omnisharp".
+			ensure_installed = { "ts_ls", "eslint", "rust_analyzer", "lua_ls", "html", "cssls", "omnisharp" },
+		},
+		config = function(_, opts)
+			local mason_lspconfig = require("mason-lspconfig")
+			local lspconfig = require("lspconfig")
+
+			-- Build shared LSP capabilities (e.g. from mini.completion or another completion plugin)
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+			-- Shared on_attach: runs for every server that attaches to a buffer
+			local function on_attach(client, bufnr)
+				-- Uncomment to disable semantic tokens per-server if you prefer treesitter colours:
+				-- client.server_capabilities.semanticTokensProvider = nil
+			end
+
+			mason_lspconfig.setup(opts)
+
+			-- mason-lspconfig v2: explicit setup_handlers required (no more auto-setup)
+			mason_lspconfig.setup_handlers({
+				-- Default handler — called for any server without a specific handler below
+				function(server_name)
+					lspconfig[server_name].setup({
+						on_attach = on_attach,
+						capabilities = capabilities,
+					})
+				end,
+
+				-- ts_ls: restrict to JS/TS only — do NOT attach to cshtml/razor/html
+				["ts_ls"] = function()
+					lspconfig.ts_ls.setup({
+						on_attach = on_attach,
+						capabilities = capabilities,
+						filetypes = {
+							"javascript", "javascriptreact",
+							"javascript.jsx", "typescript",
+							"typescriptreact", "typescript.tsx",
+						},
+					})
+				end,
+
+				-- eslint LSP: restrict to JS/TS files only
+				["eslint"] = function()
+					lspconfig.eslint.setup({
+						on_attach = on_attach,
+						capabilities = capabilities,
+						filetypes = {
+							"javascript", "javascriptreact",
+							"javascript.jsx", "typescript",
+							"typescriptreact", "typescript.tsx",
+						},
+					})
+				end,
+
+				-- html: restrict to plain HTML, not cshtml/razor
+				["html"] = function()
+					lspconfig.html.setup({
+						on_attach = on_attach,
+						capabilities = capabilities,
+						filetypes = { "html" },
+					})
+				end,
+
+				-- omnisharp: handles C#, .NET Framework 4.8, and Razor/cshtml files
+				["omnisharp"] = function()
+					lspconfig.omnisharp.setup({
+						on_attach = on_attach,
+						capabilities = capabilities,
+						filetypes = { "cs", "cshtml" },
+						enable_roslyn_analyzers = true,
+						organize_imports_on_format = true,
+						enable_import_completion = true,
+					})
+				end,
+			})
+		end,
 	},
 	{
 		"nvimtools/none-ls.nvim",
@@ -58,17 +133,53 @@ return {
 			local null_ls = require("null-ls")
 
 			require("mason-null-ls").setup({
-				ensure_installed = { "prettierd", "stylua", "eslint" },
+				ensure_installed = { "prettierd", "stylua" },
 				automatic_installation = true,
 			})
 
+			-- JS/TS filetypes for condition guards
+			local js_ts_filetypes = {
+				"javascript", "javascriptreact", "javascript.jsx",
+				"typescript", "typescriptreact", "typescript.tsx",
+			}
 
-            -- TODO: Fix issue where eslint keeps running when moving cursor in a JS/TS file
+			local function is_js_ts(utils)
+				return vim.tbl_contains(js_ts_filetypes, vim.bo.filetype)
+			end
+
 			null_ls.setup({
 				sources = {
-					require("none-ls.diagnostics.eslint"),
-					require("none-ls.code_actions.eslint"),
-					null_ls.builtins.formatting.prettierd,
+					-- ESLint: only attach to JS/TS files, and only when an ESLint config exists
+					require("none-ls.diagnostics.eslint").with({
+						condition = function(utils)
+							return is_js_ts(utils)
+								and utils.root_has_file({
+									".eslintrc", ".eslintrc.js", ".eslintrc.cjs",
+									".eslintrc.json", ".eslintrc.yaml", ".eslintrc.yml",
+									"eslint.config.js", "eslint.config.mjs",
+								})
+						end,
+						-- Prevent ESLint from re-running on every cursor move;
+						-- only run on file save and buffer enter
+						method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+					}),
+					require("none-ls.code_actions.eslint").with({
+						condition = function(utils)
+							return is_js_ts(utils)
+								and utils.root_has_file({
+									".eslintrc", ".eslintrc.js", ".eslintrc.cjs",
+									".eslintrc.json", ".eslintrc.yaml", ".eslintrc.yml",
+									"eslint.config.js", "eslint.config.mjs",
+								})
+						end,
+					}),
+					-- prettierd: format JS/TS/HTML/CSS — but NOT C# files
+					null_ls.builtins.formatting.prettierd.with({
+						filetypes = {
+							"javascript", "javascriptreact", "typescript", "typescriptreact",
+							"css", "scss", "html", "json", "yaml", "markdown",
+						},
+					}),
 					null_ls.builtins.formatting.stylua,
 				},
 			})
@@ -76,15 +187,6 @@ return {
 			vim.api.nvim_create_user_command("Format", function()
 				vim.lsp.buf.format({ async = true })
 			end, {})
-
-			-- Disabled: Synchronous formatting on save causes race conditions and file corruption
-			-- Use <leader>fF to format manually, or uncomment with timeout protection
-			-- vim.api.nvim_create_autocmd("BufWritePre", {
-			-- 	pattern = { "*.js", "*.ts", "*.jsx", "*.tsx", "*.lua" },
-			-- 	callback = function()
-			-- 		vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
-			-- 	end,
-			-- })
 		end,
 		keys = {
 			{ "<leader>fF", "<cmd>Format<CR>", desc = "Format current buffer" },

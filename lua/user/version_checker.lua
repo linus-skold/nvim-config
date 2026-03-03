@@ -1,6 +1,6 @@
 -- Description: Module to check and cache the latest version of Neovim from GitHub
 
-local uv = vim.loop
+local uv = vim.uv or vim.loop
 local M = {} -- module table
 
 local cache_file = vim.fn.stdpath("cache") .. "/.nvim_remote_version"
@@ -68,7 +68,7 @@ local function parse_version(version)
 	}
 end
 
-function is_version_greater(v1, v2)
+local function is_version_greater(v1, v2)
 	if v1.major ~= v2.major then
 		return v1.major > v2.major
 	elseif v1.minor ~= v2.minor then

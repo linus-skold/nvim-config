@@ -26,10 +26,6 @@ return {
 		},
         picker = {
 			enabled = true,
-			finder = "rg",
-			projects = {
-			    enabled = true
-            },
 			sources = {
 				explorer = {
 					title = "",

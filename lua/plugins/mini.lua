@@ -4,16 +4,19 @@ return {
 		"nvim-mini/mini.completion",
 		version = "*",
 		event = "VeryLazy",
+		opts = {},
 	},
 	{
 		"nvim-mini/mini.bracketed",
 		version = "*",
 		event = "VeryLazy",
+		opts = {},
 	},
 	{
 		"nvim-mini/mini.comment",
 		version = "*",
 		event = "VeryLazy",
+		opts = {},
 	},
 	{
 		"nvim-mini/mini.diff",

@@ -20,7 +20,10 @@ vim.api.nvim_command("hi SignColumn guibg=NONE")
 
 -- Disable mini.completion in Snacks.nvim prompts
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "snacks_picker_input", "snacks_files", "snacks_pick", "prompt" },
+	-- "snacks_files" and "snacks_pick" do not exist; the real filetypes are:
+	--   snacks_picker_input  (the search/input line)
+	--   snacks_picker_list   (the results list)
+	pattern = { "snacks_picker_input", "snacks_picker_list", "prompt" },
 	callback = function()
 		vim.b.minicompletion_disable = true
 	end,
