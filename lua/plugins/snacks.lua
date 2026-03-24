@@ -70,6 +70,12 @@ return {
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                         desc = "Prev Reference",               mode = { "n", "t" }, },
         { "<leader>qp",      function() Snacks.picker.projects() end,                                 desc = "Projects", },
         { "<leader><space>", function() Snacks.picker.files() end,                                    desc = "Find Files", },
+        { "<A-O>", function()
+            local default = { glob = "*.{c,cpp,cc,cxx,h,hpp,hxx,lua,py,js,ts,jsx,tsx,rs,go,cs,java,rb,sh,zig,toml,json,yaml,yml,md}" }
+            local ok, project = pcall(require, "project")
+            local opts = (ok and project.find_files) and project.find_files or default
+            Snacks.picker.files(opts)
+        end, desc = "Find Code Files", },
         { "<leader>gc",      function() Snacks.picker.git_log() end,                                  desc = "Git Log", },
         { "<leader>gs",      function() Snacks.picker.git_status() end,                               desc = "Git Status", },
         { "<leader>fg",      function() Snacks.picker.git_files() end,                                desc = "Find Git Files", },
