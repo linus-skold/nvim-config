@@ -10,6 +10,7 @@ vim.opt.termguicolors = true
 vim.opt.syntax = "on"
 vim.opt.listchars = { space = ".", tab = ">-" }
 vim.opt.list = true
+vim.opt.exrc = true  -- load .nvim.lua from project root (secured by vim.secure)
 
 require("user.lazy")
 require("user.keymap")

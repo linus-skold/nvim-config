@@ -57,6 +57,23 @@ nremap("<leader>kR", function()
 	end)
 end, { desc = "Reload keymap.lua" })
 
+-- C/C++: switch between header and source file via clangd
+nremap("<A-o>", function()
+	local ext = vim.fn.expand("%:e")
+	local cpp_exts = { c = true, cpp = true, cc = true, cxx = true, h = true, hpp = true, hxx = true }
+	if not cpp_exts[ext] then return end
+
+	-- Ask clangd for the counterpart file
+	local params = { uri = vim.uri_from_bufnr(0) }
+	vim.lsp.buf_request(0, "textDocument/switchSourceHeader", params, function(err, result)
+		if err or not result or result == "" then
+			vim.notify("clangd: no counterpart found", vim.log.levels.WARN)
+			return
+		end
+		vim.cmd("edit " .. vim.uri_to_fname(result))
+	end)
+end, { desc = "C++: switch header/source" })
+
 nremap("<leader>sr", "lua require('telescope').extensions.git_worktree.git_worktrees()", { noremap = true, silent = true, desc = "Git Worktrees" })
 nremap("<leader>sR", "lua require('telescope').extensions.git_worktree.create_git_worktree()", { noremap = true, silent = true, desc = "Create Git Worktree" })
 nremap("<leader>sC", "nohl", { noremap = true, silent = true, desc = "Clear Search Highlight" })
