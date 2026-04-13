@@ -12,19 +12,26 @@ return {
 				{ section = "header" },
 				{ section = "keys", gap = 1, padding = 1 },
 				{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-                { section = "startup" },
+				{ section = "startup" },
 				{
-					text = {
-						{ "Neovim", hl = "header" },
-						{ " v" },
-						{ vc.get_current() },
-						{ vc.update_available() and " -> v" .. vc.get_latest(), hl = "Special" },
-					},
+					text = (function()
+						local t = {
+							{ "Neovim", hl = "header" },
+							{ " v" },
+							{ vc.get_current() },
+						}
+
+						if vc.update_available() then
+							table.insert(t, { " -> v" .. vc.get_latest(), hl = "Special" })
+						end
+
+						return t
+					end)(),
 					align = "center",
 				},
 			},
 		},
-        picker = {
+		picker = {
 			enabled = true,
 			sources = {
 				explorer = {
@@ -64,26 +71,31 @@ return {
         { "<leader>gg",      function() Snacks.lazygit() end,                                         desc = "Lazygit", },
         { "<leader>gl",      function() Snacks.lazygit.log() end,                                     desc = "Lazygit Log (cwd)", },
         { "<leader>un",      function() Snacks.notifier.hide() end,                                   desc = "Dismiss All Notifications", },
-        { "<leader>tT",      function() Snacks.terminal.toggle() end,                                        desc = "Toggle Terminal", },
+        { "<leader>tT",      function() Snacks.terminal.toggle() end,                                 desc = "Toggle Terminal", },
         { "<leader>tF",      function() Snacks.terminal.open(nil, { win = { style = "float" } }) end, desc = "Toggle Floating Terminal", },
         { "]]",              function() Snacks.words.jump(vim.v.count1) end,                          desc = "Next Reference",               mode = { "n", "t" }, },
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                         desc = "Prev Reference",               mode = { "n", "t" }, },
         { "<leader>qp",      function() Snacks.picker.projects() end,                                 desc = "Projects", },
         { "<leader><space>", function() Snacks.picker.files() end,                                    desc = "Find Files", },
-        { "<A-O>", function()
-            local default = { glob = "*.{c,cpp,cc,cxx,h,hpp,hxx,lua,py,js,ts,jsx,tsx,rs,go,cs,java,rb,sh,zig,toml,json,yaml,yml,md}" }
-            local ok, project = pcall(require, "project")
-            local opts = (ok and project.find_files) and project.find_files or default
-            Snacks.picker.files(opts)
-        end, desc = "Find Code Files", },
-        { "<leader>gc",      function() Snacks.picker.git_log() end,                                  desc = "Git Log", },
-        { "<leader>gs",      function() Snacks.picker.git_status() end,                               desc = "Git Status", },
-        { "<leader>fg",      function() Snacks.picker.git_files() end,                                desc = "Find Git Files", },
-        { "<leader>E",       function() Snacks.picker.explorer() end,                                 desc = "File Explorer", },
-        { "<leader>sb",      function() Snacks.picker.lines() end,                                    desc = "Buffer Lines" },
-        { "<leader>sB",      function() Snacks.picker.grep_buffers() end,                             desc = "Grep Open Buffers" },
-        { "<leader>sg",      function() Snacks.picker.grep() end,                                     desc = "Grep" },
-        { "<leader>sw",      function() Snacks.picker.grep_word() end,                                desc = "Visual selection or word",     mode = { "n", "x" } },
+        {
+            "<A-O>",
+            function()
+                local default = { glob =
+                "*.{c,cpp,cc,cxx,h,hpp,hxx,lua,py,js,ts,jsx,tsx,rs,go,cs,java,rb,sh,zig,toml,json,yaml,yml,md}" }
+                local ok, project = pcall(require, "project")
+                local opts = (ok and project.find_files) and project.find_files or default
+                Snacks.picker.files(opts)
+            end,
+            desc = "Find Code Files",
+        },
+        { "<leader>gc", function() Snacks.picker.git_log() end,      desc = "Git Log", },
+        { "<leader>gs", function() Snacks.picker.git_status() end,   desc = "Git Status", },
+        { "<leader>fg", function() Snacks.picker.git_files() end,    desc = "Find Git Files", },
+        { "<leader>E",  function() Snacks.picker.explorer() end,     desc = "File Explorer", },
+        { "<leader>sb", function() Snacks.picker.lines() end,        desc = "Buffer Lines" },
+        { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+        { "<leader>sg", function() Snacks.picker.grep() end,         desc = "Grep" },
+        { "<leader>sw", function() Snacks.picker.grep_word() end,    desc = "Visual selection or word", mode = { "n", "x" } },
     },
     -- stylua: ignore stop
     init = function()
