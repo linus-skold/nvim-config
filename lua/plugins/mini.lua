@@ -34,7 +34,7 @@ return {
     },
     {
         "nvim-mini/mini.sessions",
-        enable = true,
+        enabled = true,
         dependencies = { "folke/snacks.nvim" },
         version = "*",
         event = "VeryLazy",
