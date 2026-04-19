@@ -75,7 +75,7 @@ return {
         { "<leader>tF",      function() Snacks.terminal.open(nil, { win = { style = "float" } }) end, desc = "Toggle Floating Terminal", },
         { "]]",              function() Snacks.words.jump(vim.v.count1) end,                          desc = "Next Reference",               mode = { "n", "t" }, },
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                         desc = "Prev Reference",               mode = { "n", "t" }, },
-        { "<leader>qp",      function() Snacks.picker.projects() end,                                 desc = "Projects", },
+        { "<leader>qp",function() Snacks.picker.projects() end,                                 desc = "Projects", },
         { "<leader><space>", function() Snacks.picker.files() end,                                    desc = "Find Files", },
         {
             "<A-O>",
