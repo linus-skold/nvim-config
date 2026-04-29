@@ -12,6 +12,42 @@ return {
 				{ section = "header" },
 				{ section = "keys", gap = 1, padding = 1 },
 				{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+                -- Custom sessions section: lists every file in the mini.sessions
+                -- global directory as an individual, clickable dashboard entry.
+                -- The function-as-child pattern lets snacks resolve() call our
+                -- function at render time, inherit pane/indent from the parent
+                -- table, and auto-insert the "Sessions" title before the items.
+                {
+                    pane = 2,
+                    icon = "󰆓 ",
+                    title = "Sessions",
+                    indent = 2,
+                    padding = 1,
+                    function()
+                        -- mini.sessions stores global sessions in stdpath("data")/session/
+                        -- Files have no forced extension; the name IS the session key.
+                        local dir = vim.fn.stdpath("data") .. "/session"
+                        local items = {}
+                        local ok, entries = pcall(vim.fn.readdir, dir)
+                        if ok and entries then
+                            for _, name in ipairs(entries) do
+                                -- skip any subdirectories that may exist in the folder
+                                if vim.fn.isdirectory(dir .. "/" .. name) == 0 then
+                                    local n = name -- capture for the closure
+                                    table.insert(items, {
+                                        icon = "󰆓 ",
+                                        desc = n,
+                                        action = function()
+                                            require("mini.sessions").read(n)
+                                        end,
+                                    })
+                                end
+                            end
+                        end
+                        -- returning an empty table hides the title too (no children = no section)
+                        return items
+                    end,
+                },
 				{ section = "startup" },
 				{
 					text = (function()

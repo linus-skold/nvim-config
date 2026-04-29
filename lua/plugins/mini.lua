@@ -38,13 +38,16 @@ return {
         dependencies = { "folke/snacks.nvim" },
         version = "*",
         event = "VeryLazy",
-        opts = { 
+        opts = {
             file = "Session.vim",
-            autoread = true,
+            -- autoread is intentionally omitted: mini.sessions loads on VeryLazy,
+            -- which fires AFTER VimEnter, so the VimEnter autocmd that autoread
+            -- registers would never trigger. Session restore is handled by the
+            -- snacks dashboard "Restore Session" button instead.
             autowrite = true,
         },
         keys = {
-            { "<leader>cS", function() 
+            { "<leader>cS", function()
                 Snacks.input({
                     prompt = "Session name: ",
                 }, function(input)
@@ -52,7 +55,8 @@ return {
                         require("mini.sessions").write(input)
                     end
                 end)
-            end, desc = "Create Session" }  
+            end, desc = "Save Session" },
+            { "<leader>cL", function() require("mini.sessions").select() end, desc = "Load Session" },
         },
         config = function(_, opts)
             require("mini.sessions").setup(opts)
